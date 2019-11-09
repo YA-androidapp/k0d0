@@ -37,11 +37,11 @@ function sleep(a) {
 
 async function main() {
     console.log('main()', 'Start');
-    // const SITE_ID = process.env.SITE_ID;
+    // const SITE_ID = process.env.SITE_ID && '';
     // console.log('main()', 'SITE_ID');
-    // const SITE_PW = process.env.SITE_PW;
+    // const SITE_PW = process.env.SITE_PW && '';
     // console.log('main()', 'SITE_PW');
-    const SITE_URL = 'https://github.com/YA-androidapp/k0d0'; // process.env.SITE_URL;
+    const SITE_URL = 'https://github.com/YA-androidapp/k0d0'; // process.env.SITE_URL && '';
     console.log('main()', 'SITE_URL');
 
     let driver;
@@ -70,17 +70,21 @@ async function main() {
         fs.writeFileSync('screenshot.jpg', buffer);
         console.log('main()', 'Screenshot', 'fs.writeFileSync()');
 
-        // notify.email(true, base64);
-        // notify.teams(true, base64);
+        notify.email(true, base64);
+        notify.teams(true, base64);
 
     } catch (e) {
         console.error('main()', e);
-        process.exit(1);
-    }
 
-    console.log('main()', 'Final');
-    driver && (await driver.quit());
-    console.log('main()', 'Final', 'driver.quit()');
+        notify.email(false, base64);
+        notify.teams(false, base64);
+
+        process.exit(1);
+    } finally {
+        console.log('main()', 'Final');
+        driver && (await driver.quit());
+        console.log('main()', 'Final', 'driver.quit()');
+    }
 }
 
 main();

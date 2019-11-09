@@ -15,12 +15,17 @@ const get_subject = (result) => {
 const email = (result, imgdata) => {
     console.log('email()', result, imgdata);
 
-    const SENDGRID_KEY = process.env.SENDGRID_KEY;
+    const SENDGRID_KEY = process.env.SENDGRID_KEY && '';
     console.log('email()', 'SENDGRID_KEY');
-    const SENDGRID_TO = process.env.SENDGRID_TO;
+    const SENDGRID_TO = process.env.SENDGRID_TO && '';
     console.log('email()', 'SENDGRID_TO');
-    const SENDGRID_FROM = process.env.SENDGRID_FROM;
+    const SENDGRID_FROM = process.env.SENDGRID_FROM && '';
     console.log('email()', 'SENDGRID_FROM');
+
+    if (!SENDGRID_KEY || !SENDGRID_TO || !SENDGRID_FROM) {
+        console.log('email()', '(!SENDGRID_KEY || !SENDGRID_TO || !SENDGRID_FROM)');
+        return;
+    }
 
     const sgMail = require('@sendgrid/mail');
     console.log('email()', 'sgMail');
