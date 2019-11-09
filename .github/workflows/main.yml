@@ -3,15 +3,24 @@ name: k0d0
 on: [push]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  win-ie:
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+      - uses: actions/checkout@v1
+      - uses: warrenbuckley/Setup-Nuget@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: nuget install Selenium.WebDriver.IEDriver -Version 3.150.1
+      - run: node k0d0.js
+        env:
+          BROWSER: ie
+          SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
+          SENDGRID_TO: ${{ secrets.SENDGRID_TO }}
+          SENDGRID_FROM: ${{ secrets.SENDGRID_FROM }}
+          SITE_ID: ${{ secrets.SITE_ID }}
+          SITE_PW: ${{ secrets.SITE_PW }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+          WEBHOOK_HOST: ${{ secrets.WEBHOOK_HOST }}
+          WEBHOOK_PATH: ${{ secrets.WEBHOOK_PATH }}
