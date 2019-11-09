@@ -58,12 +58,13 @@ const teams = (result, imgdata) => {
     const WEBHOOK_PATH = process.env.WEBHOOK_PATH;
     console.log('email()', 'WEBHOOK_PATH');
 
+    if (!WEBHOOK_HOST || !WEBHOOK_PATH) {
+        console.log('email()', '(!WEBHOOK_HOST || !WEBHOOK_PATH)');
+        return;
+    }
+
     let https = require('https');
     console.log('teams()', 'https');
-    let host = WEBHOOK_HOST;
-    console.log('teams()', 'host');
-    let path = WEBHOOK_PATH;
-    console.log('teams()', 'path');
 
     let data = JSON.stringify({
         'text': get_subject(result) + ' / ' + 'data:image/png;base64,' + imgdata
@@ -71,9 +72,9 @@ const teams = (result, imgdata) => {
     console.log('teams()', 'data');
 
     let options = {
-        hostname: host,
+        hostname: WEBHOOK_HOST,
         port: 443,
-        path: path,
+        path: WEBHOOK_PATH,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
