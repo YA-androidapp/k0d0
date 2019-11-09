@@ -56,13 +56,14 @@ async function main() {
         console.log('main()', 'driver.manage().deleteAllCookies()');
 
         await driver.get(SITE_URL);
-        console.log('main()', 'driver.get(SITE_URL)');
+        console.log('main()', 'driver.get(SITE_URL)', SITE_URL);
 
         console.log('main()', 'Screenshot');
         sleep(30000);
         console.log('main()', 'Screenshot', 'sleep(30000)');
         await driver.wait(until.elementLocated(By.tagName('body')), 30000);
         console.log('main()', 'Screenshot', 'driver.wait(until.elementLocated(By.tagName(\'body\')), 30000)');
+        console.log('main()', await driver.getCurrentUrl(), await driver.getTitle());
         const base64 = await driver.takeScreenshot();
         console.log('main()', 'Screenshot', 'base64', base64);
         const buffer = Buffer.from(base64, 'base64');
