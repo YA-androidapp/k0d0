@@ -60,10 +60,15 @@ async function main() {
 
         console.log('main()', 'Screenshot');
         sleep(30000);
+        console.log('main()', 'Screenshot', 'sleep(30000)');
         await driver.wait(until.elementLocated(By.tagName('body')), 30000);
+        console.log('main()', 'Screenshot', 'driver.wait(until.elementLocated(By.tagName(\'body\')), 30000)');
         const base64 = await driver.takeScreenshot();
+        console.log('main()', 'Screenshot', 'base64', base64);
         const buffer = Buffer.from(base64, 'base64');
+        console.log('main()', 'Screenshot', 'buffer', buffer);
         fs.writeFileSync('screenshot.jpg', buffer);
+        console.log('main()', 'Screenshot', 'fs.writeFileSync()');
 
         // notify.email(true, base64);
         // notify.teams(true, base64);
