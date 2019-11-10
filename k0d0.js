@@ -62,7 +62,7 @@ async function test() {
     const SITE_PW = process.env.SITE_PW && '';
     console.log('test()', 'SITE_PW');
     const SITE_URL = process.env.SITE_URL && '';
-    console.log('test()', 'SITE_URL');
+    console.log('test()', 'SITE_URL', SITE_URL);
 
     let driver;
     try {
