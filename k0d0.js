@@ -47,10 +47,6 @@ async function main() {
             console.log('main()', 'index', index, 'result', result);
             if (result) {
                 // passed
-                notify.email(true, base64);
-                console.log('main()', 'index', index, 'email');
-                notify.teams(true, base64);
-                console.log('main()', 'index', index, 'teams');
                 process.exit(0); // 正常終了
             }
         }
@@ -59,10 +55,11 @@ async function main() {
     }
 
     // failed
-    notify.email(false, base64);
+    notify.email(false, '');
     console.log('main()', 'index', 'failed', 'email');
-    notify.teams(false, base64);
+    notify.teams(false, '');
     console.log('main()', 'index', 'failed', 'teams');
+
     process.exit(1); // GitHub Actions側でエラー扱い(Process completed with exit code 1.)される
 }
 
@@ -100,6 +97,24 @@ async function test() {
         await driver.findElement(By.name('loginfmt')).sendKeys(SITE_ID, webdriver.Key.ENTER);
         console.log('test()', 'ID', 'driver.findElement(By.name(\'loginfmt\')).sendKeys(SITE_ID, webdriver.Key.ENTER)');
 
+        console.log('test()', 'PW');
+        sleep(10000);
+        console.log('test()', 'PW', 'sleep(10000)');
+        await driver.wait(until.elementLocated(By.id('i0118')), 10000);
+        console.log('test()', 'PW', ' driver.wait(until.elementLocated(By.id(\'i0118\')), 10000)');
+        console.log('test()', 'PW', 'title', await driver.getCurrentUrl(), await driver.getTitle());
+        await driver.findElement(By.id('i0118')).sendKeys(SITE_PW, webdriver.Key.ENTER);
+        console.log('test()', 'PW', 'driver.findElement(By.id(\'i0118\')).sendKeys(SITE_PW, webdriver.Key.ENTER)');
+
+        console.log('test()', 'SUBMIT');
+        sleep(10000);
+        console.log('test()', 'SUBMIT', 'sleep(10000)');
+        await driver.wait(until.elementLocated(By.id('idSIButton9')), 10000);
+        console.log('test()', 'SUBMIT', ' driver.wait(until.elementLocated(By.id(\'idSIButton9\')), 10000)');
+        console.log('test()', 'SUBMIT', 'title', await driver.getCurrentUrl(), await driver.getTitle());
+        await driver.findElement(By.id('idSIButton9')).sendKeys(webdriver.Key.ENTER);
+        console.log('test()', 'SUBMIT', 'driver.findElement(By.id(\'idSIButton9\')).sendKeys(webdriver.Key.ENTER)');
+
         // to be customized
 
         console.log('test()', 'Screenshot');
@@ -117,6 +132,11 @@ async function test() {
 
         driver && (await driver.quit());
         console.log('test()', 'Final', 'driver.quit()');
+
+        notify.email(true, base64);
+        console.log('main()', 'index', index, 'email');
+        notify.teams(true, base64);
+        console.log('main()', 'index', index, 'teams');
 
         return true;
     } catch (e) {
