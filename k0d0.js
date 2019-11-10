@@ -38,23 +38,21 @@ function sleep(a) {
 }
 
 async function main() {
-    process.exit(1);
+    console.log('main()', 'Start');
+    for (let index = 0; index < MAXIMUM_RETRY_NUMBER; index++) {
+        let result = test();
+        if (result) {
+            // passed
+            notify.email(true, base64);
+            notify.teams(true, base64);
+            process.exit(0);
+        }
+    }
 
-    // console.log('main()', 'Start');
-    // for (let index = 0; index < MAXIMUM_RETRY_NUMBER; index++) {
-    //     let result = test();
-    //     if (result) {
-    //         // passed
-    //         notify.email(true, base64);
-    //         notify.teams(true, base64);
-    //         process.exit(0);
-    //     }
-    // }
-
-    // // failed
-    // notify.email(false, base64);
-    // notify.teams(false, base64);
-    // process.exit(1);
+    // failed
+    notify.email(false, base64);
+    notify.teams(false, base64);
+    process.exit(1); // GitHub Actions側でエラー扱い(Process completed with exit code 1.)される
 }
 
 async function test() {
