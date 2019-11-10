@@ -15,11 +15,11 @@ const get_subject = (result) => {
 const email = (result, imgdata) => {
     console.log('email()', result, imgdata);
 
-    const SENDGRID_KEY = process.env.SENDGRID_KEY && '';
+    const SENDGRID_KEY = process.env.SENDGRID_KEY || '';
     console.log('email()', 'SENDGRID_KEY');
-    const SENDGRID_TO = process.env.SENDGRID_TO && '';
+    const SENDGRID_TO = process.env.SENDGRID_TO || '';
     console.log('email()', 'SENDGRID_TO');
-    const SENDGRID_FROM = process.env.SENDGRID_FROM && '';
+    const SENDGRID_FROM = process.env.SENDGRID_FROM || '';
     console.log('email()', 'SENDGRID_FROM');
 
     if (!SENDGRID_KEY || !SENDGRID_TO || !SENDGRID_FROM) {
@@ -53,9 +53,9 @@ const email = (result, imgdata) => {
 const teams = (result, imgdata) => {
     console.log('teams()', result, imgdata);
 
-    const WEBHOOK_HOST = process.env.WEBHOOK_HOST;
+    const WEBHOOK_HOST = process.env.WEBHOOK_HOST || '';
     console.log('email()', 'WEBHOOK_HOST');
-    const WEBHOOK_PATH = process.env.WEBHOOK_PATH;
+    const WEBHOOK_PATH = process.env.WEBHOOK_PATH || '';
     console.log('email()', 'WEBHOOK_PATH');
 
     if (!WEBHOOK_HOST || !WEBHOOK_PATH) {
