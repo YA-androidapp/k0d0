@@ -40,7 +40,7 @@ function sleep(a) {
 async function main() {
     console.log('main()', 'Start');
     for (let index = 0; index < MAXIMUM_RETRY_NUMBER; index++) {
-        let result = test();
+        let result = await test();
         if (result) {
             // passed
             notify.email(true, base64);
