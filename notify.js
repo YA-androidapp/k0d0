@@ -27,27 +27,31 @@ const email = (result, imgdata) => {
         return;
     }
 
-    const sgMail = require('@sendgrid/mail');
-    console.log('email()', 'sgMail');
+    try {
+        const sgMail = require('@sendgrid/mail');
+        console.log('email()', 'sgMail');
 
-    sgMail.setApiKey(SENDGRID_KEY);
-    console.log('email()', 'sgMail.setApiKey(SENDGRID_KEY)');
+        sgMail.setApiKey(SENDGRID_KEY);
+        console.log('email()', 'sgMail.setApiKey(SENDGRID_KEY)');
 
-    const msg = {
-        to: SENDGRID_TO,
-        from: SENDGRID_FROM,
-        subject: get_subject(result),
-        text: 'Test results: ......',
-        html: '<strong>Test results:</strong><br>......',
-        attachments: [{
-            content: imgdata,
-            filename: 'Result.png',
-            type: 'image/png',
-        }, ],
-    };
-    console.log('email()', 'msg');
-    sgMail.send(msg);
-    console.log('email()', 'sgMail.send(msg)');
+        const msg = {
+            to: SENDGRID_TO,
+            from: SENDGRID_FROM,
+            subject: get_subject(result),
+            text: 'Test results: ......',
+            html: '<strong>Test results:</strong><br>......',
+            attachments: [{
+                content: imgdata,
+                filename: 'Result.png',
+                type: 'image/png',
+            }, ],
+        };
+        console.log('email()', 'msg');
+        sgMail.send(msg);
+        console.log('email()', 'sgMail.send(msg)');
+    } catch (e) {
+        console.error('email()', e);
+    }
 }
 
 const teams = (result, imgdata) => {
@@ -63,44 +67,48 @@ const teams = (result, imgdata) => {
         return;
     }
 
-    let https = require('https');
-    console.log('teams()', 'https');
+    try {
+        let https = require('https');
+        console.log('teams()', 'https');
 
-    let data = JSON.stringify({
-        'text': get_subject(result) + ' / ' + 'data:image/png;base64,' + imgdata
-    });
-    console.log('teams()', 'data');
-
-    let options = {
-        hostname: WEBHOOK_HOST,
-        port: 443,
-        path: WEBHOOK_PATH,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(data)
-        }
-    };
-    console.log('teams()', 'options');
-
-    let req = https.request(options, (res) => {
-        console.log('status code : ' + res.statusCode);
-        res.setEncoding('utf8');
-        res.on('data', (d) => {
-            console.log(d)
+        let data = JSON.stringify({
+            'text': get_subject(result) + ' / ' + 'data:image/png;base64,' + imgdata
         });
-    });
-    console.log('teams()', 'req');
+        console.log('teams()', 'data');
 
-    req.on('error', (e) => {
-        console.error(e);
-    });
-    console.log('teams()', 'req.on(\'error\')');
+        let options = {
+            hostname: WEBHOOK_HOST,
+            port: 443,
+            path: WEBHOOK_PATH,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(data)
+            }
+        };
+        console.log('teams()', 'options');
 
-    req.write(data);
-    console.log('teams()', 'req.write(data)');
-    req.end();
-    console.log('teams()', 'req.end()');
+        let req = https.request(options, (res) => {
+            console.log('status code : ' + res.statusCode);
+            res.setEncoding('utf8');
+            res.on('data', (d) => {
+                console.log(d)
+            });
+        });
+        console.log('teams()', 'req');
+
+        req.on('error', (e) => {
+            console.error(e);
+        });
+        console.log('teams()', 'req.on(\'error\')');
+
+        req.write(data);
+        console.log('teams()', 'req.write(data)');
+        req.end();
+        console.log('teams()', 'req.end()');
+    } catch (e) {
+        console.error('teams()', e);
+    }
 }
 
 exports.email = email;

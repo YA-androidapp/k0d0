@@ -133,10 +133,14 @@ async function test() {
         driver && (await driver.quit());
         console.log('test()', 'Final', 'driver.quit()');
 
-        notify.email(true, base64);
-        console.log('main()', 'index', index, 'email');
-        notify.teams(true, base64);
-        console.log('main()', 'index', index, 'teams');
+        try {
+            notify.email(true, base64);
+            console.log('test()', 'email');
+            notify.teams(true, base64);
+            console.log('test()', 'teams');
+        } catch (error) {
+            console.error('test()', 'notify', error);
+        }
 
         return true;
     } catch (e) {
