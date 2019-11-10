@@ -80,10 +80,18 @@ async function test() {
 
         // to be customized
 
+        console.log('main()', 'Signin');
+        sleep(10000);
+        console.log('test()', 'Screenshot', 'sleep(10000)');
+        await driver.wait(until.elementLocated(By.linkText('サインイン')), 10000);
+        console.log('main()', 'Signin', 'title', await driver.getCurrentUrl(), await driver.getTitle());
+        await driver.findElement(By.linkText('サインイン')).click();
+
         console.log('main()', 'ID');
         sleep(10000);
+        console.log('test()', 'Screenshot', 'sleep(10000)');
         await driver.wait(until.elementLocated(By.name('loginfmt')), 10000); // By.id('i0116')
-        console.log('title1', await driver.getCurrentUrl(), await driver.getTitle());
+        console.log('main()', 'ID', 'title', await driver.getCurrentUrl(), await driver.getTitle());
         await driver.findElement(By.name('loginfmt')).sendKeys(SITE_ID, webdriver.Key.ENTER);
 
         // to be customized
