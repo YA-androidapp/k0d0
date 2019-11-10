@@ -106,14 +106,14 @@ async function test() {
         await driver.findElement(By.id('i0118')).sendKeys(SITE_PW, webdriver.Key.ENTER);
         console.log('test()', 'PW', 'driver.findElement(By.id(\'i0118\')).sendKeys(SITE_PW, webdriver.Key.ENTER)');
 
-        console.log('test()', 'SUBMIT');
-        sleep(10000);
-        console.log('test()', 'SUBMIT', 'sleep(10000)');
-        await driver.wait(until.elementLocated(By.id('idSIButton9')), 10000);
-        console.log('test()', 'SUBMIT', ' driver.wait(until.elementLocated(By.id(\'idSIButton9\')), 10000)');
-        console.log('test()', 'SUBMIT', 'title', await driver.getCurrentUrl(), await driver.getTitle());
-        await driver.findElement(By.id('idSIButton9')).sendKeys(webdriver.Key.ENTER);
-        console.log('test()', 'SUBMIT', 'driver.findElement(By.id(\'idSIButton9\')).sendKeys(webdriver.Key.ENTER)');
+        // console.log('test()', 'SUBMIT');
+        // sleep(10000);
+        // console.log('test()', 'SUBMIT', 'sleep(10000)');
+        // await driver.wait(until.elementLocated(By.id('idSIButton9')), 10000);
+        // console.log('test()', 'SUBMIT', ' driver.wait(until.elementLocated(By.id(\'idSIButton9\')), 10000)');
+        // console.log('test()', 'SUBMIT', 'title', await driver.getCurrentUrl(), await driver.getTitle());
+        // await driver.findElement(By.id('idSIButton9')).sendKeys(webdriver.Key.ENTER);
+        // console.log('test()', 'SUBMIT', 'driver.findElement(By.id(\'idSIButton9\')).sendKeys(webdriver.Key.ENTER)');
 
         // to be customized
 
