@@ -39,19 +39,30 @@ function sleep(a) {
 
 async function main() {
     console.log('main()', 'Start');
-    for (let index = 0; index < MAXIMUM_RETRY_NUMBER; index++) {
-        let result = await test();
-        if (result) {
-            // passed
-            notify.email(true, base64);
-            notify.teams(true, base64);
-            process.exit(0);
+
+    try {
+        for (let index = 0; index < MAXIMUM_RETRY_NUMBER; index++) {
+            console.log('main()', 'index', index);
+            let result = await test();
+            console.log('main()', 'index', index, 'result', result);
+            if (result) {
+                // passed
+                notify.email(true, base64);
+                console.log('main()', 'index', index, 'email');
+                notify.teams(true, base64);
+                console.log('main()', 'index', index, 'teams');
+                process.exit(0); // 正常終了
+            }
         }
+    } catch (e) {
+        console.error('test()', e);
     }
 
     // failed
     notify.email(false, base64);
+    console.log('main()', 'index', 'failed', 'email');
     notify.teams(false, base64);
+    console.log('main()', 'index', 'failed', 'teams');
     process.exit(1); // GitHub Actions側でエラー扱い(Process completed with exit code 1.)される
 }
 
@@ -80,19 +91,23 @@ async function test() {
 
         // to be customized
 
-        console.log('main()', 'Signin');
-        sleep(10000);
-        console.log('test()', 'Screenshot', 'sleep(10000)');
-        await driver.wait(until.elementLocated(By.linkText('サインイン')), 10000);
-        console.log('main()', 'Signin', 'title', await driver.getCurrentUrl(), await driver.getTitle());
+        console.log('test()', 'Signin');
+        sleep(30000);
+        console.log('test()', 'Screenshot', 'sleep(30000)');
+        await driver.wait(until.elementLocated(By.linkText('サインイン')), 30000);
+        console.log('test()', 'Screenshot', 'driver.wait(until.elementLocated(By.linkText(\'サインイン\')), 30000)');
+        console.log('test()', 'Signin', 'title', await driver.getCurrentUrl(), await driver.getTitle());
         await driver.findElement(By.linkText('サインイン')).click();
+        console.log('test()', 'Screenshot', 'driver.findElement(By.linkText(\'サインイン\')).click()');
 
-        console.log('main()', 'ID');
+        console.log('test()', 'ID');
         sleep(10000);
         console.log('test()', 'Screenshot', 'sleep(10000)');
         await driver.wait(until.elementLocated(By.name('loginfmt')), 10000); // By.id('i0116')
-        console.log('main()', 'ID', 'title', await driver.getCurrentUrl(), await driver.getTitle());
+        console.log('test()', 'Screenshot', ' driver.wait(until.elementLocated(By.name(\'loginfmt\')), 10000)');
+        console.log('test()', 'ID', 'title', await driver.getCurrentUrl(), await driver.getTitle());
         await driver.findElement(By.name('loginfmt')).sendKeys(SITE_ID, webdriver.Key.ENTER);
+        console.log('test()', 'Screenshot', 'driver.findElement(By.name(\'loginfmt\')).sendKeys(SITE_ID, webdriver.Key.ENTER)');
 
         // to be customized
 
