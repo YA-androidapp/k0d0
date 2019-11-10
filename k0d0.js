@@ -91,15 +91,6 @@ async function test() {
 
         // to be customized
 
-        console.log('test()', 'Signin');
-        sleep(10000);
-        console.log('test()', 'Signin', 'sleep(10000)');
-        await driver.wait(until.elementLocated(By.className('sign-in-link')), 10000);
-        console.log('test()', 'Signin', 'driver.wait(until.elementLocated(By.className(\'sign-in-link\')), 10000)');
-        console.log('test()', 'Signin', 'title', await driver.getCurrentUrl(), await driver.getTitle());
-        await driver.findElement(By.className('sign-in-link')).click();
-        console.log('test()', 'Signin', 'driver.findElement(By.className(\'sign-in-link\')).click()');
-
         console.log('test()', 'ID');
         sleep(10000);
         console.log('test()', 'ID', 'sleep(10000)');
