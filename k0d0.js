@@ -92,22 +92,22 @@ async function test() {
         // to be customized
 
         console.log('test()', 'Signin');
-        sleep(30000);
-        console.log('test()', 'Screenshot', 'sleep(30000)');
-        await driver.wait(until.elementLocated(By.linkText('サインイン')), 30000);
-        console.log('test()', 'Screenshot', 'driver.wait(until.elementLocated(By.linkText(\'サインイン\')), 30000)');
+        sleep(10000);
+        console.log('test()', 'Signin', 'sleep(10000)');
+        await driver.wait(until.elementLocated(By.className('sign-in-link')), 10000);
+        console.log('test()', 'Signin', 'driver.wait(until.elementLocated(By.className(\'sign-in-link\')), 10000)');
         console.log('test()', 'Signin', 'title', await driver.getCurrentUrl(), await driver.getTitle());
-        await driver.findElement(By.linkText('サインイン')).click();
-        console.log('test()', 'Screenshot', 'driver.findElement(By.linkText(\'サインイン\')).click()');
+        await driver.findElement(By.className('sign-in-link')).click();
+        console.log('test()', 'Signin', 'driver.findElement(By.className(\'sign-in-link\')).click()');
 
         console.log('test()', 'ID');
         sleep(10000);
-        console.log('test()', 'Screenshot', 'sleep(10000)');
+        console.log('test()', 'ID', 'sleep(10000)');
         await driver.wait(until.elementLocated(By.name('loginfmt')), 10000); // By.id('i0116')
-        console.log('test()', 'Screenshot', ' driver.wait(until.elementLocated(By.name(\'loginfmt\')), 10000)');
+        console.log('test()', 'ID', ' driver.wait(until.elementLocated(By.name(\'loginfmt\')), 10000)');
         console.log('test()', 'ID', 'title', await driver.getCurrentUrl(), await driver.getTitle());
         await driver.findElement(By.name('loginfmt')).sendKeys(SITE_ID, webdriver.Key.ENTER);
-        console.log('test()', 'Screenshot', 'driver.findElement(By.name(\'loginfmt\')).sendKeys(SITE_ID, webdriver.Key.ENTER)');
+        console.log('test()', 'ID', 'driver.findElement(By.name(\'loginfmt\')).sendKeys(SITE_ID, webdriver.Key.ENTER)');
 
         // to be customized
 
@@ -123,6 +123,7 @@ async function test() {
         console.log('test()', 'Screenshot', 'buffer', buffer);
         fs.writeFileSync('screenshot.jpg', buffer);
         console.log('test()', 'Screenshot', 'fs.writeFileSync()');
+
         driver && (await driver.quit());
         console.log('test()', 'Final', 'driver.quit()');
 
