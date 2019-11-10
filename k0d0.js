@@ -57,11 +57,11 @@ async function main() {
 
 async function test() {
     console.log('test()', 'Start');
-    // const SITE_ID = process.env.SITE_ID && '';
-    // console.log('test()', 'SITE_ID');
-    // const SITE_PW = process.env.SITE_PW && '';
-    // console.log('test()', 'SITE_PW');
-    const SITE_URL = 'https://github.com/YA-androidapp/k0d0'; // process.env.SITE_URL && '';
+    const SITE_ID = process.env.SITE_ID && '';
+    console.log('test()', 'SITE_ID');
+    const SITE_PW = process.env.SITE_PW && '';
+    console.log('test()', 'SITE_PW');
+    const SITE_URL = process.env.SITE_URL && '';
     console.log('test()', 'SITE_URL');
 
     let driver;
@@ -77,6 +77,16 @@ async function test() {
 
         await driver.get(SITE_URL);
         console.log('test()', 'driver.get(SITE_URL)', SITE_URL);
+
+        // to be customized
+
+        console.log('main()', 'ID');
+        sleep(10000);
+        await driver.wait(until.elementLocated(By.name('loginfmt')), 10000); // By.id('i0116')
+        console.log('title1', await driver.getCurrentUrl(), await driver.getTitle());
+        await driver.findElement(By.name('loginfmt')).sendKeys(SITE_ID, webdriver.Key.ENTER);
+
+        // to be customized
 
         console.log('test()', 'Screenshot');
         sleep(30000);
